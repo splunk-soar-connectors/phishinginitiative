@@ -1,7 +1,7 @@
 {
     "appid"    : "4ec9654f-f9d1-47bb-a097-5d4dd0aad73a",
     "name"   : "Phishing Initiative",
-    "description": "Implements <b>url reputation</b> action by querying the Phishing Initiative web API",
+    "description": "Implements URL reputation capabilities by querying the Phishing Initiative web API",
     "publisher": "Phantom",
     "type": "reputation",
     "main_module": "phishinginitiative_connector.pyc",
@@ -11,12 +11,12 @@
     "product_vendor": "Phishing Initiative",
     "product_name": "Phishing Initiative",
     "product_version_regex": ".*",
-    "min_phantom_version": "3.0.190",
+    "min_phantom_version": "3.0.247",
     "logo": "phishinginitiative.png",
-    "license": "Copyright (c) Phantom Cyber Corporation 2016",
+    "license": "Copyright (c) Phantom Cyber Corporation 2016-2017",
     "configuration": {
       "api_key": {
-        "data_type": "string",
+        "data_type": "password",
         "order": 0,
         "description": "API Key",
         "required": true
