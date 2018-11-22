@@ -11,10 +11,10 @@
     "product_vendor": "Phishing Initiative",
     "product_name": "Phishing Initiative",
     "product_version_regex": ".*",
-    "min_phantom_version": "3.0.247",
+    "min_phantom_version": "3.5.210",
     "logo": "logo_phishinginitiative.svg",
     "logo_dark": "logo_phishinginitiative_dark.svg",
-    "license": "Copyright (c) Phantom Cyber Corporation, 2016-2018",
+    "license": "Copyright (c) 2016-2018 Splunk Inc.",
     "configuration": {
         "api_key": {
             "data_type": "password",
@@ -46,7 +46,8 @@
                     "description": "URL to Query",
                     "data_type": "string",
                     "contains": [
-                        "url"
+                        "url",
+                        "domain"
                     ],
                     "order": 0,
                     "primary": true,
@@ -62,49 +63,78 @@
             "output": [
                 {
                     "data_path": "action_result.data.*.tag",
-                    "data_type": "numeric"
+                    "data_type": "numeric",
+                    "example_values": [
+                        2
+                    ]
                 },
                 {
                     "data_path": "action_result.data.*.url",
                     "data_type": "string",
                     "contains": [
-                        "url"
+                        "url",
+                        "domain"
+                    ],
+                    "example_values": [
+                        "https://www.facebook.com"
                     ]
                 },
                 {
                     "data_path": "action_result.data.*.tag_label",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "clean"
+                    ]
                 },
                 {
                     "data_path": "action_result.status",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "success"
+                    ]
                 },
                 {
                     "data_path": "action_result.message",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "Tag label: clean"
+                    ]
                 },
                 {
                     "data_path": "action_result.summary.tag_label",
                     "data_type": "string",
                     "column_order": 1,
-                    "column_name": "Tag Label"
+                    "column_name": "Tag Label",
+                    "example_values": [
+                        "clean"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.url",
                     "data_type": "string",
                     "contains": [
-                        "url"
+                        "url",
+                        "domain"
                     ],
                     "column_order": 0,
-                    "column_name": "URL"
+                    "column_name": "URL",
+                    "example_values": [
+                        "https://www.facebook.com"
+                    ]
                 },
                 {
                     "data_path": "summary.total_objects",
-                    "data_type": "numeric"
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
                 },
                 {
                     "data_path": "summary.total_objects_successful",
-                    "data_type": "numeric"
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
                 }
             ],
             "versions": "EQ(*)"
