@@ -11,10 +11,10 @@
     "product_vendor": "Phishing Initiative",
     "product_name": "Phishing Initiative",
     "product_version_regex": ".*",
-    "min_phantom_version": "3.5.210",
+    "min_phantom_version": "4.0.1068",
     "logo": "logo_phishinginitiative.svg",
     "logo_dark": "logo_phishinginitiative_dark.svg",
-    "license": "Copyright (c) 2016-2018 Splunk Inc.",
+    "license": "Copyright (c) 2016-2019 Splunk Inc.",
     "configuration": {
         "api_key": {
             "data_type": "password",
