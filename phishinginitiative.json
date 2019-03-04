@@ -2,7 +2,7 @@
     "appid": "4ec9654f-f9d1-47bb-a097-5d4dd0aad73a",
     "name": "Phishing Initiative",
     "description": "Implements reputational capabilities for URL by querying the Phishing Initiative web API",
-    "publisher": "Phantom",
+    "publisher": "Splunk",
     "type": "reputation",
     "main_module": "phishinginitiative_connector.pyc",
     "app_version": "1.0.11",
