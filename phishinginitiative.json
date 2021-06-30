@@ -41,9 +41,9 @@
         {
             "action": "url reputation",
             "description": "URL Reputation",
+            "verbose": "This action runs a quick URL reputation query to check the connection and credentials.",
             "type": "investigate",
             "identifier": "url_reputation",
-            "verbose": "This action runs a quick URL reputation query to check the connection and credentials.",
             "read_only": true,
             "parameters": {
                 "url": {
@@ -57,12 +57,6 @@
                     "primary": true,
                     "required": true
                 }
-            },
-            "render": {
-                "width": 12,
-                "title": "Url Reputation",
-                "type": "table",
-                "height": 5
             },
             "output": [
                 {
@@ -94,7 +88,8 @@
                     "data_path": "action_result.status",
                     "data_type": "string",
                     "example_values": [
-                        "success"
+                        "success",
+                        "failed"
                     ]
                 },
                 {
@@ -141,6 +136,12 @@
                     ]
                 }
             ],
+            "render": {
+                "width": 12,
+                "title": "Url Reputation",
+                "type": "table",
+                "height": 5
+            },
             "versions": "EQ(*)"
         }
     ]
