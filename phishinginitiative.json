@@ -4,17 +4,21 @@
     "description": "Implements reputational capabilities for URL by querying the Phishing Initiative web API",
     "publisher": "Splunk",
     "type": "reputation",
-    "main_module": "phishinginitiative_connector.pyc",
-    "app_version": "1.0.12",
+    "main_module": "phishinginitiative_connector.py",
+    "app_version": "2.0.0",
     "utctime_updated": "2019-03-12T23:27:40.000000Z",
     "package_name": "phantom_phishinginitiative",
     "product_vendor": "Phishing Initiative",
     "product_name": "Phishing Initiative",
     "product_version_regex": ".*",
-    "min_phantom_version": "4.0.1068",
+    "min_phantom_version": "4.9.39220",
+    "latest_tested_versions": [
+        "Phishing Initiative Cloud, 2021 on 1 July, 2021"
+    ],
+    "python_version": "3",
     "logo": "logo_phishinginitiative.svg",
     "logo_dark": "logo_phishinginitiative_dark.svg",
-    "license": "Copyright (c) 2017-2019 Splunk Inc.",
+    "license": "Copyright (c) 2017-2021 Splunk Inc.",
     "configuration": {
         "api_key": {
             "data_type": "password",
