@@ -74,7 +74,7 @@ class PhishingInitiativeConnector(BaseConnector):
         self.save_progress("Querying a domain to check connectivity")
 
         # Make the rest endpoint call
-        ret_val, response = self._make_rest_call("https://www.google.com", action_result)
+        ret_val, _ = self._make_rest_call("https://www.google.com", action_result)
 
         # Process errors
         if (phantom.is_fail(ret_val)):
