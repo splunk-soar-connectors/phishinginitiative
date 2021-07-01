@@ -37,7 +37,7 @@ class PhishingInitiativeConnector(BaseConnector):
         try:
             r = requests.get(PHISINIT_LOOKUP_URL, params=params, headers=headers)
         except Exception as e:
-            return (action_result.set_status(phantom.APP_ERROR, PHISINIT_ERR_SERVER_CONNECTION, e), resp_json)
+            return action_result.set_status(phantom.APP_ERROR, PHISINIT_ERR_SERVER_CONNECTION, e), resp_json
 
         action_result.add_debug_data({'r_text': r.text if r else 'r is None'})
 
@@ -46,12 +46,12 @@ class PhishingInitiativeConnector(BaseConnector):
         except Exception as e:
             # r.text is guaranteed to be NON None, it will be empty, but not None
             msg_string = r.text.replace('{', '').replace('}', '')
-            return (action_result.set_status(phantom.APP_ERROR, msg_string, e), resp_json)
+            return action_result.set_status(phantom.APP_ERROR, msg_string, e), resp_json
 
         # Handle/process any errors that we get back from the device
-        if (r.status_code == 200):
+        if r.status_code == 200:
             # Success
-            return (phantom.APP_SUCCESS, resp_json)
+            return phantom.APP_SUCCESS, resp_json
 
         # Failure
         action_result.add_data(resp_json)
@@ -77,7 +77,7 @@ class PhishingInitiativeConnector(BaseConnector):
         ret_val, _ = self._make_rest_call("https://www.google.com", action_result)
 
         # Process errors
-        if (phantom.is_fail(ret_val)):
+        if phantom.is_fail(ret_val):
 
             # Dump error messages in the log
             self.debug_print(action_result.get_message())
@@ -105,7 +105,7 @@ class PhishingInitiativeConnector(BaseConnector):
         ret_val, response = self._make_rest_call(param[PHISINIT_JSON_URL], action_result)
 
         # Process/parse the errors encountered while making the REST call.
-        if (phantom.is_fail(ret_val)):
+        if phantom.is_fail(ret_val):
             return action_result.get_status()
 
         try:
@@ -130,9 +130,9 @@ class PhishingInitiativeConnector(BaseConnector):
         ret_val = phantom.APP_SUCCESS
 
         # Bunch if if..elif to process actions
-        if (action == self.ACTION_ID_URL_REPUTATION):
+        if action == self.ACTION_ID_URL_REPUTATION:
             ret_val = self._handle_url_reputation(param)
-        elif (action == phantom.ACTION_ID_TEST_ASSET_CONNECTIVITY):
+        elif action == phantom.ACTION_ID_TEST_ASSET_CONNECTIVITY:
             ret_val = self._test_connectivity(param)
 
         return ret_val
