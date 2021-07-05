@@ -41,7 +41,7 @@
         {
             "action": "url reputation",
             "description": "URL Reputation",
-            "verbose": "This action runs a quick URL reputation query to check the connection and credentials.",
+            "verbose": "This action runs a URL reputation query to check the connection and credentials.",
             "type": "investigate",
             "identifier": "url_reputation",
             "read_only": true,
