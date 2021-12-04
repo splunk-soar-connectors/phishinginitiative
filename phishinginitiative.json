@@ -16,6 +16,7 @@
         "Phishing Initiative Cloud, 2021 on July 01, 2021"
     ],
     "python_version": "3",
+    "fips_compliant":true,
     "logo": "logo_phishinginitiative.svg",
     "logo_dark": "logo_phishinginitiative_dark.svg",
     "license": "Copyright (c) 2017-2021 Splunk Inc.",
