@@ -14,16 +14,13 @@
 # and limitations under the License.
 """ Code that implements calls made to the phishinginitiative web API"""
 
-# Phantom imports
 import phantom.app as phantom
-from phantom.base_connector import BaseConnector
-from phantom.action_result import ActionResult
-
-# THIS Connector imports
-from phishinginitiative_consts import *
-
 import requests
 import simplejson as json
+from phantom.action_result import ActionResult
+from phantom.base_connector import BaseConnector
+
+from phishinginitiative_consts import *
 
 
 class PhishingInitiativeConnector(BaseConnector):
@@ -154,6 +151,7 @@ if __name__ == '__main__':
 
     # Imports
     import sys
+
     import pudb
 
     # Breakpoint at runtime
