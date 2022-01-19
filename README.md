@@ -2,7 +2,7 @@
 # Phishing Initiative
 
 Publisher: Splunk  
-Connector Version: 2\.0\.2  
+Connector Version: 2\.0\.4  
 Product Vendor: Phishing Initiative  
 Product Name: Phishing Initiative  
 Product Version Supported (regex): "\.\*"  
