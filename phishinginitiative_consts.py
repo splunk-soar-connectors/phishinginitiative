@@ -23,3 +23,5 @@ PHISINIT_LOOKUP_URL = "https://phishing-initiative.fr/api/v1/urls/lookup"
 
 PHISINIT_ERR_SERVER_CONNECTION = "Error connecting to server"
 PHISINIT_USING_BASE_URL = "Using Base URL: {0}"
+
+PHISINIT_DEFAULT_REQUEST_TIMEOUT = 30  # in seconds
