@@ -5,13 +5,13 @@
     "publisher": "Splunk",
     "type": "reputation",
     "main_module": "phishinginitiative_connector.py",
-    "app_version": "2.0.4",
-    "utctime_updated": "2022-01-14T00:22:08.000000Z",
+    "app_version": "2.0.5",
+    "utctime_updated": "2022-02-02T16:33:48.000000Z",
     "package_name": "phantom_phishinginitiative",
     "product_vendor": "Phishing Initiative",
     "product_name": "Phishing Initiative",
     "product_version_regex": ".*",
-    "min_phantom_version": "4.9.39220",
+    "min_phantom_version": "5.1.0",
     "latest_tested_versions": [
         "Phishing Initiative Cloud, 2021 on July 01, 2021"
     ],
