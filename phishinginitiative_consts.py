@@ -13,7 +13,7 @@
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
 PHISINIT_JSON_URL = "url"
-PHISINIT_JSON_API_KEY = "api_key"
+PHISINIT_JSON_API_KEY = "api_key"  # pragma: allowlist secret
 
 PHISINIT_ERR_CONNECTIVITY_TEST = "Connectivity test failed"
 PHISINIT_SUCC_CONNECTIVITY_TEST = "Connectivity test passed"
