@@ -2,11 +2,11 @@
 # Phishing Initiative
 
 Publisher: Splunk  
-Connector Version: 2\.0\.4  
+Connector Version: 2\.0\.6  
 Product Vendor: Phishing Initiative  
 Product Name: Phishing Initiative  
 Product Version Supported (regex): "\.\*"  
-Minimum Product Version: 4\.9\.39220  
+Minimum Product Version: 5\.1\.0  
 
 Implements reputational capabilities for URL by querying the Phishing Initiative web API
 

@@ -13,7 +13,7 @@
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
 PHISINIT_JSON_URL = "url"
-PHISINIT_JSON_API_KEY = "api_key"
+PHISINIT_JSON_API_KEY = "api_key"  # pragma: allowlist secret
 
 PHISINIT_ERR_CONNECTIVITY_TEST = "Connectivity test failed"
 PHISINIT_SUCC_CONNECTIVITY_TEST = "Connectivity test passed"
@@ -23,3 +23,5 @@ PHISINIT_LOOKUP_URL = "https://phishing-initiative.fr/api/v1/urls/lookup"
 
 PHISINIT_ERR_SERVER_CONNECTION = "Error connecting to server"
 PHISINIT_USING_BASE_URL = "Using Base URL: {0}"
+
+PHISINIT_DEFAULT_REQUEST_TIMEOUT = 30  # in seconds

@@ -41,7 +41,7 @@ class PhishingInitiativeConnector(BaseConnector):
 
         # Make the call
         try:
-            r = requests.get(PHISINIT_LOOKUP_URL, params=params, headers=headers)
+            r = requests.get(PHISINIT_LOOKUP_URL, params=params, headers=headers, timeout=PHISINIT_DEFAULT_REQUEST_TIMEOUT)
         except Exception as e:
             return action_result.set_status(phantom.APP_ERROR, PHISINIT_ERR_SERVER_CONNECTION, e), resp_json
 
@@ -177,4 +177,4 @@ if __name__ == '__main__':
         # Dump the return value
         print(ret_val)
 
-    exit(0)
+    sys.exit(0)
