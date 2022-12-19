@@ -12,7 +12,7 @@
 # the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
-""" Code that implements calls made to the phishinginitiative web API"""
+
 
 import phantom.app as phantom
 import requests
@@ -28,20 +28,34 @@ class PhishingInitiativeConnector(BaseConnector):
     # actions supported by this script
     ACTION_ID_URL_REPUTATION = "url_reputation"
 
+    def __init__(self):
+
+        # Call the BaseConnectors init first
+        super(PhishingInitiativeConnector, self).__init__()
+
+        self._base_url = None
+        self._api_key = None
+
+    def initialize(self):
+
+        config = self.get_config()
+
+        self._base_url = "{0}{1}".format(config[PHISINIT_JSON_BASE_URL].rstrip('/'), PHISINIT_LOOKUP_URL)
+        self._api_key = config[PHISINIT_JSON_API_KEY]
+
+        return phantom.APP_SUCCESS
+
     def _make_rest_call(self, url, action_result):
         """ Function that makes the REST call to the device, generic function that can be called from various action handlers"""
-
-        # Get the config
-        config = self.get_config()
 
         resp_json = None
 
         params = {'url': url}
-        headers = {'Authorization': 'Token {0}'.format(config[PHISINIT_JSON_API_KEY])}
+        headers = {'Authorization': 'Token {0}'.format(self._api_key)}
 
         # Make the call
         try:
-            r = requests.get(PHISINIT_LOOKUP_URL, params=params, headers=headers, timeout=PHISINIT_DEFAULT_REQUEST_TIMEOUT)
+            r = requests.get(self._base_url, params=params, headers=headers, timeout=PHISINIT_DEFAULT_REQUEST_TIMEOUT)
         except Exception as e:
             return action_result.set_status(phantom.APP_ERROR, PHISINIT_ERR_SERVER_CONNECTION, e), resp_json
 
@@ -125,6 +139,10 @@ class PhishingInitiativeConnector(BaseConnector):
 
         # set the status
         return action_result.set_status(phantom.APP_SUCCESS)
+
+    def finalize(self):
+
+        return phantom.APP_SUCCESS
 
     def handle_action(self, param):
         """Function that handles all the actions"""
