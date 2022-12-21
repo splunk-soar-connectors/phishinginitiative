@@ -72,7 +72,6 @@ class PhishingInitiativeConnector(BaseConnector):
 
         # Handle/process any errors that we get back from the device
         if r.status_code == 200:
-            # Success
             return phantom.APP_SUCCESS, resp_json
 
         # Failure
@@ -120,7 +119,7 @@ class PhishingInitiativeConnector(BaseConnector):
 
         action_result = self.add_action_result(ActionResult(dict(param)))
 
-        # Progress
+        # start progress
         self.save_progress(PHISINIT_USING_BASE_URL.format(PHISINIT_LOOKUP_URL))
 
         # Make the rest call
@@ -132,7 +131,7 @@ class PhishingInitiativeConnector(BaseConnector):
 
         try:
             data = response[0]
-        except Exceptio as e:
+        except Exception as e:
             self.error_print("Response not in the expected format", e)
             return action_result.set_status(phantom.APP_ERROR, "Response not in the expected format")
 
