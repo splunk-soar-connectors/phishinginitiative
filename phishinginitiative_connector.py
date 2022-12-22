@@ -57,8 +57,8 @@ class PhishingInitiativeConnector(BaseConnector):
         try:
             r = requests.get(self._base_url, params=params, headers=headers, timeout=PHISINIT_DEFAULT_REQUEST_TIMEOUT)
         except Exception as e:
-            self.error_print("Error while REST call", e)
-            return action_result.set_status(phantom.APP_ERROR, PHISINIT_ERROR_SERVER_CONNECTIVITY, e), resp_json
+            self.error_print("Error occured while making a REST API call", e)
+            return action_result.set_status(phantom.APP_ERROR, PHISINIT_ERROR_SERVER_CONNECTIVITY), resp_json
 
         action_result.add_debug_data({'r_text': r.text if r else 'r is None'})
 
@@ -113,7 +113,7 @@ class PhishingInitiativeConnector(BaseConnector):
             return phantom.APP_ERROR
 
         # Set the status of the connector result
-        return self.set_status_save_progress(phantom.APP_SUCCESS, PHISINIT_SUCCESS_CONNECTIVITY_TEST)
+        return action_result.set_status(phantom.APP_SUCCESS, PHISINIT_SUCCESS_CONNECTIVITY_TEST)
 
     def _handle_url_reputation(self, param):
 
