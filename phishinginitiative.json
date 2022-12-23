@@ -24,8 +24,9 @@
         "base_url": {
             "data_type": "string",
             "order": 0,
-            "description": "Base URL, e.g https://phishing-initiative.eu",
-            "required": true
+            "description": "Base URL",
+            "required": true,
+            "default": "https://phishing-initiative.eu"
         },
         "api_key": {
             "data_type": "password",

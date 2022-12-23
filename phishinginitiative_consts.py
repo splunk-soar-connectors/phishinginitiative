@@ -16,13 +16,13 @@ PHISINIT_JSON_URL = "url"
 PHISINIT_JSON_BASE_URL = "base_url"
 PHISINIT_JSON_API_KEY = "api_key"  # pragma: allowlist secret
 
-PHISINIT_ERROR_CONNECTIVITY_TEST = "Connectivity test failed"
-PHISINIT_SUCCESS_CONNECTIVITY_TEST = "Connectivity test passed"
+PHISINIT_ERROR_CONNECTIVITY_TEST = "Test connectivity failed"
+PHISINIT_SUCCESS_CONNECTIVITY_TEST = "Test connectivity passed"
 PHISINIT_ERROR_FROM_SERVER = "API failed, Status code: {status}, Detail: {detail}"
 
 PHISINIT_LOOKUP_URL = "/api/v1/urls/lookup"
 
-PHISINIT_ERROR_SERVER_CONNECTIVITY = "Error connecting to server"
+PHISINIT_ERROR_SERVER_CONNECTIVITY = "Error connecting to server. Error: {}"
 PHISINIT_USING_BASE_URL = "Using Base URL: {0}"
 
 PHISINIT_DEFAULT_REQUEST_TIMEOUT = 30  # in seconds

@@ -58,7 +58,7 @@ class PhishingInitiativeConnector(BaseConnector):
             r = requests.get(self._base_url, params=params, headers=headers, timeout=PHISINIT_DEFAULT_REQUEST_TIMEOUT)
         except Exception as e:
             self.error_print("Error occured while making a REST API call", e)
-            return action_result.set_status(phantom.APP_ERROR, PHISINIT_ERROR_SERVER_CONNECTIVITY), resp_json
+            return action_result.set_status(phantom.APP_ERROR, PHISINIT_ERROR_SERVER_CONNECTIVITY.format(e)), resp_json
 
         action_result.add_debug_data({'r_text': r.text if r else 'r is None'})
 
@@ -89,7 +89,7 @@ class PhishingInitiativeConnector(BaseConnector):
         self.save_progress(PHISINIT_USING_BASE_URL.format(PHISINIT_LOOKUP_URL))
 
         # Action result to represent the call
-        action_result = ActionResult()
+        action_result = self.add_action_result(ActionResult(dict(param)))
 
         # Progress message, since it is test connectivity, it pays to be verbose
         self.save_progress("Querying a domain to check connectivity")
@@ -104,16 +104,17 @@ class PhishingInitiativeConnector(BaseConnector):
             self.debug_print(action_result.get_message())
 
             # Set the status of the complete connector result
-            self.set_status(phantom.APP_ERROR, action_result.get_message())
+            action_result.set_status(phantom.APP_ERROR, action_result.get_message())
 
             # Append the message to display
-            self.append_to_message(PHISINIT_ERROR_CONNECTIVITY_TEST)
+            action_result.append_to_message(PHISINIT_ERROR_CONNECTIVITY_TEST)
 
             # return error
             return phantom.APP_ERROR
 
         # Set the status of the connector result
-        return action_result.set_status(phantom.APP_SUCCESS, PHISINIT_SUCCESS_CONNECTIVITY_TEST)
+        self.save_progress(PHISINIT_SUCCESS_CONNECTIVITY_TEST)
+        return action_result.set_status(phantom.APP_SUCCESS)
 
     def _handle_url_reputation(self, param):
 
