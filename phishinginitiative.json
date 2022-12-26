@@ -5,15 +5,15 @@
     "publisher": "Splunk",
     "type": "reputation",
     "main_module": "phishinginitiative_connector.py",
-    "app_version": "2.0.6",
+    "app_version": "2.1.0",
     "utctime_updated": "2022-02-04T02:58:15.000000Z",
     "package_name": "phantom_phishinginitiative",
     "product_vendor": "Phishing Initiative",
     "product_name": "Phishing Initiative",
     "product_version_regex": ".*",
-    "min_phantom_version": "5.1.0",
+    "min_phantom_version": "5.3.5",
     "latest_tested_versions": [
-        "Phishing Initiative Cloud, 2021 on July 01, 2021"
+        "Phishing Initiative Cloud, 2022 on December 19, 2022"
     ],
     "python_version": "3",
     "fips_compliant": true,
@@ -21,9 +21,16 @@
     "logo_dark": "logo_phishinginitiative_dark.svg",
     "license": "Copyright (c) 2017-2022 Splunk Inc.",
     "configuration": {
+        "base_url": {
+            "data_type": "string",
+            "order": 0,
+            "description": "Base URL",
+            "required": true,
+            "default": "https://phishing-initiative.eu"
+        },
         "api_key": {
             "data_type": "password",
-            "order": 0,
+            "order": 1,
             "description": "API Key",
             "required": true
         }
@@ -61,52 +68,11 @@
             },
             "output": [
                 {
-                    "data_path": "action_result.data.*.tag",
-                    "data_type": "numeric",
-                    "example_values": [
-                        2
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.url",
-                    "data_type": "string",
-                    "contains": [
-                        "url",
-                        "domain"
-                    ],
-                    "example_values": [
-                        "https://splunk.okta.com"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.tag_label",
-                    "data_type": "string",
-                    "example_values": [
-                        "clean"
-                    ]
-                },
-                {
                     "data_path": "action_result.status",
                     "data_type": "string",
                     "example_values": [
                         "success",
                         "failed"
-                    ]
-                },
-                {
-                    "data_path": "action_result.message",
-                    "data_type": "string",
-                    "example_values": [
-                        "Tag label: clean"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.tag_label",
-                    "data_type": "string",
-                    "column_order": 1,
-                    "column_name": "Tag Label",
-                    "example_values": [
-                        "clean"
                     ]
                 },
                 {
@@ -119,7 +85,48 @@
                     "column_order": 0,
                     "column_name": "URL",
                     "example_values": [
-                        "https://splunk.okta.com"
+                        "https://test.com"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.tag",
+                    "data_type": "numeric",
+                    "example_values": [
+                        2
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.tag_label",
+                    "data_type": "string",
+                    "example_values": [
+                        "clean"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.url",
+                    "data_type": "string",
+                    "contains": [
+                        "url",
+                        "domain"
+                    ],
+                    "example_values": [
+                        "https://test.com"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.tag_label",
+                    "data_type": "string",
+                    "column_order": 1,
+                    "column_name": "Tag Label",
+                    "example_values": [
+                        "clean"
+                    ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Tag label: clean"
                     ]
                 },
                 {
@@ -150,7 +157,7 @@
         "wheel": [
             {
                 "module": "certifi",
-                "input_file": "wheels/shared/certifi-2021.10.8-py2.py3-none-any.whl"
+                "input_file": "wheels/py3/certifi-2022.12.7-py3-none-any.whl"
             },
             {
                 "module": "chardet",
@@ -170,7 +177,7 @@
             },
             {
                 "module": "urllib3",
-                "input_file": "wheels/shared/urllib3-1.26.8-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/urllib3-1.26.13-py2.py3-none-any.whl"
             }
         ]
     },
@@ -178,7 +185,7 @@
         "wheel": [
             {
                 "module": "certifi",
-                "input_file": "wheels/shared/certifi-2021.10.8-py2.py3-none-any.whl"
+                "input_file": "wheels/py3/certifi-2022.12.7-py3-none-any.whl"
             },
             {
                 "module": "chardet",
@@ -198,7 +205,7 @@
             },
             {
                 "module": "urllib3",
-                "input_file": "wheels/shared/urllib3-1.26.8-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/urllib3-1.26.13-py2.py3-none-any.whl"
             }
         ]
     }
