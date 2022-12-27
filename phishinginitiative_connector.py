@@ -12,7 +12,7 @@
 # the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
-""" Code that implements calls made to the phishinginitiative web API"""
+
 
 import phantom.app as phantom
 import requests
@@ -28,35 +28,50 @@ class PhishingInitiativeConnector(BaseConnector):
     # actions supported by this script
     ACTION_ID_URL_REPUTATION = "url_reputation"
 
+    def __init__(self):
+
+        # Call the BaseConnectors init first
+        super(PhishingInitiativeConnector, self).__init__()
+
+        self._base_url = None
+        self._api_key = None
+
+    def initialize(self):
+
+        config = self.get_config()
+
+        self._base_url = "{0}{1}".format(config[PHISINIT_JSON_BASE_URL].rstrip('/'), PHISINIT_LOOKUP_URL)
+        self._api_key = config[PHISINIT_JSON_API_KEY]
+
+        return phantom.APP_SUCCESS
+
     def _make_rest_call(self, url, action_result):
         """ Function that makes the REST call to the device, generic function that can be called from various action handlers"""
-
-        # Get the config
-        config = self.get_config()
 
         resp_json = None
 
         params = {'url': url}
-        headers = {'Authorization': 'Token {0}'.format(config[PHISINIT_JSON_API_KEY])}
+        headers = {'Authorization': 'Token {0}'.format(self._api_key)}
 
         # Make the call
         try:
-            r = requests.get(PHISINIT_LOOKUP_URL, params=params, headers=headers, timeout=PHISINIT_DEFAULT_REQUEST_TIMEOUT)
+            r = requests.get(self._base_url, params=params, headers=headers, timeout=PHISINIT_DEFAULT_REQUEST_TIMEOUT)
         except Exception as e:
-            return action_result.set_status(phantom.APP_ERROR, PHISINIT_ERR_SERVER_CONNECTION, e), resp_json
+            self.error_print("Error occured while making a REST API call", e)
+            return action_result.set_status(phantom.APP_ERROR, PHISINIT_ERROR_SERVER_CONNECTIVITY.format(e)), resp_json
 
         action_result.add_debug_data({'r_text': r.text if r else 'r is None'})
 
         try:
             resp_json = r.json()
         except Exception as e:
+            self.error_print("Error while parsing response to json", e)
             # r.text is guaranteed to be NON None, it will be empty, but not None
-            msg_string = r.text.replace('{', '').replace('}', '')
-            return action_result.set_status(phantom.APP_ERROR, msg_string, e), resp_json
+            msg_string = r.text.replace('{', '').replace('}', '') + str(e)
+            return action_result.set_status(phantom.APP_ERROR, msg_string), resp_json
 
         # Handle/process any errors that we get back from the device
         if r.status_code == 200:
-            # Success
             return phantom.APP_SUCCESS, resp_json
 
         # Failure
@@ -65,7 +80,7 @@ class PhishingInitiativeConnector(BaseConnector):
         details = json.dumps(resp_json).replace('{', '').replace('}', '')
 
         return (action_result.set_status(phantom.APP_ERROR,
-            PHISINIT_ERR_FROM_SERVER.format(status=r.status_code, detail=details)), resp_json)
+            PHISINIT_ERROR_FROM_SERVER.format(status=r.status_code, detail=details)), resp_json)
 
     def _test_connectivity(self, param):
         """ Function that handles the test connectivity action, it is much simpler than other action handlers."""
@@ -74,7 +89,7 @@ class PhishingInitiativeConnector(BaseConnector):
         self.save_progress(PHISINIT_USING_BASE_URL.format(PHISINIT_LOOKUP_URL))
 
         # Action result to represent the call
-        action_result = ActionResult()
+        action_result = self.add_action_result(ActionResult(dict(param)))
 
         # Progress message, since it is test connectivity, it pays to be verbose
         self.save_progress("Querying a domain to check connectivity")
@@ -89,22 +104,23 @@ class PhishingInitiativeConnector(BaseConnector):
             self.debug_print(action_result.get_message())
 
             # Set the status of the complete connector result
-            self.set_status(phantom.APP_ERROR, action_result.get_message())
+            action_result.set_status(phantom.APP_ERROR, action_result.get_message())
 
             # Append the message to display
-            self.append_to_message(PHISINIT_ERR_CONNECTIVITY_TEST)
+            action_result.append_to_message(PHISINIT_ERROR_CONNECTIVITY_TEST)
 
             # return error
             return phantom.APP_ERROR
 
         # Set the status of the connector result
-        return self.set_status_save_progress(phantom.APP_SUCCESS, PHISINIT_SUCC_CONNECTIVITY_TEST)
+        self.save_progress(PHISINIT_SUCCESS_CONNECTIVITY_TEST)
+        return action_result.set_status(phantom.APP_SUCCESS)
 
     def _handle_url_reputation(self, param):
 
         action_result = self.add_action_result(ActionResult(dict(param)))
 
-        # Progress
+        # start progress
         self.save_progress(PHISINIT_USING_BASE_URL.format(PHISINIT_LOOKUP_URL))
 
         # Make the rest call
@@ -116,7 +132,8 @@ class PhishingInitiativeConnector(BaseConnector):
 
         try:
             data = response[0]
-        except:
+        except Exception as e:
+            self.error_print("Response not in the expected format", e)
             return action_result.set_status(phantom.APP_ERROR, "Response not in the expected format")
 
         # set the data
@@ -125,6 +142,10 @@ class PhishingInitiativeConnector(BaseConnector):
 
         # set the status
         return action_result.set_status(phantom.APP_SUCCESS)
+
+    def finalize(self):
+
+        return phantom.APP_SUCCESS
 
     def handle_action(self, param):
         """Function that handles all the actions"""
@@ -145,9 +166,7 @@ class PhishingInitiativeConnector(BaseConnector):
 
 
 if __name__ == '__main__':
-    """ Code that is executed when run in standalone debug mode
-    for .e.g:
-        """
+    """ Code that is executed when run in standalone debug mode"""
 
     # Imports
     import sys
