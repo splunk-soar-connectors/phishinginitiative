@@ -19,7 +19,7 @@
     "fips_compliant": true,
     "logo": "logo_phishinginitiative.svg",
     "logo_dark": "logo_phishinginitiative_dark.svg",
-    "license": "Copyright (c) 2017-2022 Splunk Inc.",
+    "license": "Copyright (c) 2017-2024 Splunk Inc.",
     "configuration": {
         "base_url": {
             "data_type": "string",
