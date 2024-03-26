@@ -5,7 +5,7 @@
     "publisher": "Splunk",
     "type": "reputation",
     "main_module": "phishinginitiative_connector.py",
-    "app_version": "2.1.0",
+    "app_version": "2.1.1",
     "utctime_updated": "2022-02-04T02:58:15.000000Z",
     "package_name": "phantom_phishinginitiative",
     "product_vendor": "Phishing Initiative",
@@ -19,7 +19,7 @@
     "fips_compliant": true,
     "logo": "logo_phishinginitiative.svg",
     "logo_dark": "logo_phishinginitiative_dark.svg",
-    "license": "Copyright (c) 2017-2022 Splunk Inc.",
+    "license": "Copyright (c) 2017-2024 Splunk Inc.",
     "configuration": {
         "base_url": {
             "data_type": "string",
@@ -156,56 +156,16 @@
     "pip_dependencies": {
         "wheel": [
             {
-                "module": "certifi",
-                "input_file": "wheels/py3/certifi-2022.12.7-py3-none-any.whl"
-            },
-            {
-                "module": "chardet",
-                "input_file": "wheels/shared/chardet-3.0.4-py2.py3-none-any.whl"
-            },
-            {
-                "module": "idna",
-                "input_file": "wheels/shared/idna-2.10-py2.py3-none-any.whl"
-            },
-            {
-                "module": "requests",
-                "input_file": "wheels/shared/requests-2.25.0-py2.py3-none-any.whl"
-            },
-            {
                 "module": "simplejson",
                 "input_file": "wheels/py36/simplejson-3.17.2-cp36-cp36m-manylinux2010_x86_64.manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
-            },
-            {
-                "module": "urllib3",
-                "input_file": "wheels/shared/urllib3-1.26.13-py2.py3-none-any.whl"
             }
         ]
     },
     "pip39_dependencies": {
         "wheel": [
             {
-                "module": "certifi",
-                "input_file": "wheels/py3/certifi-2022.12.7-py3-none-any.whl"
-            },
-            {
-                "module": "chardet",
-                "input_file": "wheels/shared/chardet-3.0.4-py2.py3-none-any.whl"
-            },
-            {
-                "module": "idna",
-                "input_file": "wheels/shared/idna-2.10-py2.py3-none-any.whl"
-            },
-            {
-                "module": "requests",
-                "input_file": "wheels/shared/requests-2.25.0-py2.py3-none-any.whl"
-            },
-            {
                 "module": "simplejson",
                 "input_file": "wheels/py39/simplejson-3.17.2-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
-            },
-            {
-                "module": "urllib3",
-                "input_file": "wheels/shared/urllib3-1.26.13-py2.py3-none-any.whl"
             }
         ]
     }

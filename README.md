@@ -2,11 +2,11 @@
 # Phishing Initiative
 
 Publisher: Splunk  
-Connector Version: 2\.1\.0  
+Connector Version: 2.1.1  
 Product Vendor: Phishing Initiative  
 Product Name: Phishing Initiative  
-Product Version Supported (regex): "\.\*"  
-Minimum Product Version: 5\.3\.5  
+Product Version Supported (regex): ".\*"  
+Minimum Product Version: 5.3.5  
 
 Implements reputational capabilities for URL by querying the Phishing Initiative web API
 
@@ -15,8 +15,8 @@ The below configuration variables are required for this Connector to operate.  T
 
 VARIABLE | REQUIRED | TYPE | DESCRIPTION
 -------- | -------- | ---- | -----------
-**base\_url** |  required  | string | Base URL
-**api\_key** |  required  | password | API Key
+**base_url** |  required  | string | Base URL
+**api_key** |  required  | password | API Key
 
 ### Supported Actions  
 [test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity  
@@ -40,7 +40,7 @@ URL Reputation
 Type: **investigate**  
 Read only: **True**
 
-This action runs a URL reputation query to check the connection and credentials\.
+This action runs a URL reputation query to check the connection and credentials.
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
@@ -48,14 +48,14 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **url** |  required  | URL to Query | string |  `url`  `domain` 
 
 #### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.status | string | 
-action\_result\.parameter\.url | string |  `url`  `domain` 
-action\_result\.data\.\*\.tag | numeric | 
-action\_result\.data\.\*\.tag\_label | string | 
-action\_result\.data\.\*\.url | string |  `url`  `domain` 
-action\_result\.summary\.tag\_label | string | 
-action\_result\.message | string | 
-summary\.total\_objects | numeric | 
-summary\.total\_objects\_successful | numeric | 
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string |  |   success  failed 
+action_result.parameter.url | string |  `url`  `domain`  |   https://test.com 
+action_result.data.\*.tag | numeric |  |   2 
+action_result.data.\*.tag_label | string |  |   clean 
+action_result.data.\*.url | string |  `url`  `domain`  |   https://test.com 
+action_result.summary.tag_label | string |  |   clean 
+action_result.message | string |  |   Tag label: clean 
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1 
