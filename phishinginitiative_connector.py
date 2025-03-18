@@ -1,6 +1,6 @@
 # File: phishinginitiative_connector.py
 #
-# Copyright (c) 2017-2024 Splunk Inc.
+# Copyright (c) 2017-2025 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,34 +24,31 @@ from phishinginitiative_consts import *
 
 
 class PhishingInitiativeConnector(BaseConnector):
-
     # actions supported by this script
     ACTION_ID_URL_REPUTATION = "url_reputation"
 
     def __init__(self):
-
         # Call the BaseConnectors init first
-        super(PhishingInitiativeConnector, self).__init__()
+        super().__init__()
 
         self._base_url = None
         self._api_key = None
 
     def initialize(self):
-
         config = self.get_config()
 
-        self._base_url = "{0}{1}".format(config[PHISINIT_JSON_BASE_URL].rstrip('/'), PHISINIT_LOOKUP_URL)
+        self._base_url = "{}{}".format(config[PHISINIT_JSON_BASE_URL].rstrip("/"), PHISINIT_LOOKUP_URL)
         self._api_key = config[PHISINIT_JSON_API_KEY]
 
         return phantom.APP_SUCCESS
 
     def _make_rest_call(self, url, action_result):
-        """ Function that makes the REST call to the device, generic function that can be called from various action handlers"""
+        """Function that makes the REST call to the device, generic function that can be called from various action handlers"""
 
         resp_json = None
 
-        params = {'url': url}
-        headers = {'Authorization': 'Token {0}'.format(self._api_key)}
+        params = {"url": url}
+        headers = {"Authorization": f"Token {self._api_key}"}
 
         # Make the call
         try:
@@ -60,14 +57,14 @@ class PhishingInitiativeConnector(BaseConnector):
             self.error_print("Error occured while making a REST API call", e)
             return action_result.set_status(phantom.APP_ERROR, PHISINIT_ERROR_SERVER_CONNECTIVITY.format(e)), resp_json
 
-        action_result.add_debug_data({'r_text': r.text if r else 'r is None'})
+        action_result.add_debug_data({"r_text": r.text if r else "r is None"})
 
         try:
             resp_json = r.json()
         except Exception as e:
             self.error_print("Error while parsing response to json", e)
             # r.text is guaranteed to be NON None, it will be empty, but not None
-            msg_string = r.text.replace('{', '').replace('}', '') + str(e)
+            msg_string = r.text.replace("{", "").replace("}", "") + str(e)
             return action_result.set_status(phantom.APP_ERROR, msg_string), resp_json
 
         # Handle/process any errors that we get back from the device
@@ -77,13 +74,12 @@ class PhishingInitiativeConnector(BaseConnector):
         # Failure
         action_result.add_data(resp_json)
 
-        details = json.dumps(resp_json).replace('{', '').replace('}', '')
+        details = json.dumps(resp_json).replace("{", "").replace("}", "")
 
-        return (action_result.set_status(phantom.APP_ERROR,
-            PHISINIT_ERROR_FROM_SERVER.format(status=r.status_code, detail=details)), resp_json)
+        return (action_result.set_status(phantom.APP_ERROR, PHISINIT_ERROR_FROM_SERVER.format(status=r.status_code, detail=details)), resp_json)
 
     def _test_connectivity(self, param):
-        """ Function that handles the test connectivity action, it is much simpler than other action handlers."""
+        """Function that handles the test connectivity action, it is much simpler than other action handlers."""
 
         # Progress
         self.save_progress(PHISINIT_USING_BASE_URL.format(PHISINIT_LOOKUP_URL))
@@ -99,7 +95,6 @@ class PhishingInitiativeConnector(BaseConnector):
 
         # Process errors
         if phantom.is_fail(ret_val):
-
             # Dump error messages in the log
             self.debug_print(action_result.get_message())
 
@@ -117,7 +112,6 @@ class PhishingInitiativeConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS)
 
     def _handle_url_reputation(self, param):
-
         action_result = self.add_action_result(ActionResult(dict(param)))
 
         # start progress
@@ -138,13 +132,12 @@ class PhishingInitiativeConnector(BaseConnector):
 
         # set the data
         action_result.add_data(data)
-        action_result.update_summary({'tag_label': data.get('tag_label')})
+        action_result.update_summary({"tag_label": data.get("tag_label")})
 
         # set the status
         return action_result.set_status(phantom.APP_SUCCESS)
 
     def finalize(self):
-
         return phantom.APP_SUCCESS
 
     def handle_action(self, param):
@@ -165,7 +158,7 @@ class PhishingInitiativeConnector(BaseConnector):
         return ret_val
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     """ Code that is executed when run in standalone debug mode"""
 
     # Imports
@@ -178,11 +171,10 @@ if __name__ == '__main__':
 
     # The first param is the input json file
     with open(sys.argv[1]) as f:
-
         # Load the input json file
         in_json = f.read()
         in_json = json.loads(in_json)
-        print(json.dumps(in_json, indent=' ' * 4))
+        print(json.dumps(in_json, indent=" " * 4))
 
         # Create the connector class object
         connector = PhishingInitiativeConnector()
