@@ -1,7 +1,7 @@
 # Phishing Initiative
 
 Publisher: Splunk \
-Connector Version: 2.1.3 \
+Connector Version: 2.1.4 \
 Product Vendor: Phishing Initiative \
 Product Name: Phishing Initiative \
 Minimum Product Version: 5.3.5
