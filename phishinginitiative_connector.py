@@ -14,6 +14,9 @@
 # and limitations under the License.
 
 
+import re
+from urllib.parse import urlsplit
+
 import phantom.app as phantom
 import requests
 import simplejson as json
@@ -117,8 +120,28 @@ class PhishingInitiativeConnector(BaseConnector):
         # start progress
         self.save_progress(PHISINIT_USING_BASE_URL.format(PHISINIT_LOOKUP_URL))
 
+        url = param[PHISINIT_JSON_URL].strip()
+        url = re.sub(
+            r"^(hxxps?|https?)(?::|\[:\])//",
+            lambda match: "{}://".format(match.group(1).lower().replace("xx", "tt")),
+            url,
+            flags=re.IGNORECASE,
+        )
+        url = re.sub(r"(?:\[(?:\.|dot)\]|\((?:\.|dot)\))", ".", url, flags=re.IGNORECASE)
+
+        try:
+            parsed_url = urlsplit(url)
+            valid_url = parsed_url.scheme in ("http", "https") and bool(parsed_url.hostname)
+        except ValueError:
+            valid_url = False
+        if not valid_url:
+            return action_result.set_status(phantom.APP_ERROR, "Parameter 'url' must be a valid HTTP(S) URL")
+
+        if url != param[PHISINIT_JSON_URL]:
+            self.save_progress("Input URL was normalized before the reputation lookup")
+
         # Make the rest call
-        ret_val, response = self._make_rest_call(param[PHISINIT_JSON_URL], action_result)
+        ret_val, response = self._make_rest_call(url, action_result)
 
         # Process/parse the errors encountered while making the REST call.
         if phantom.is_fail(ret_val):
