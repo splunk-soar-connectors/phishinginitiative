@@ -1,9 +1,9 @@
 # Phishing Initiative
 
-Publisher: Splunk \
-Connector Version: 2.1.4 \
-Product Vendor: Phishing Initiative \
-Product Name: Phishing Initiative \
+Publisher: Splunk <br>
+Connector Version: 2.1.4 <br>
+Product Vendor: Phishing Initiative <br>
+Product Name: Phishing Initiative <br>
 Minimum Product Version: 5.3.5
 
 Implements reputational capabilities for URL by querying the Phishing Initiative web API
@@ -19,14 +19,14 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 
 ### Supported Actions
 
-[test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity \
+[test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity <br>
 [url reputation](#action-url-reputation) - URL Reputation
 
 ## action: 'test connectivity'
 
 Validate the asset configuration for connectivity
 
-Type: **test** \
+Type: **test** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -41,7 +41,7 @@ No Output
 
 URL Reputation
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 This action runs a URL reputation query to check the connection and credentials.
@@ -70,7 +70,7 @@ ______________________________________________________________________
 
 Auto-generated Splunk SOAR Connector documentation.
 
-Copyright 2025 Splunk Inc.
+Copyright 2026 Splunk Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
