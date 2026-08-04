@@ -153,6 +153,9 @@ class PhishingInitiativeConnector(BaseConnector):
             self.error_print("Response not in the expected format", e)
             return action_result.set_status(phantom.APP_ERROR, "Response not in the expected format")
 
+        if not isinstance(data, dict):
+            return action_result.set_status(phantom.APP_ERROR, "Response not in the expected format")
+
         # set the data
         action_result.add_data(data)
         action_result.update_summary({"tag_label": data.get("tag_label")})
