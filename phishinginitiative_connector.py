@@ -1,6 +1,6 @@
 # File: phishinginitiative_connector.py
 #
-# Copyright (c) 2017-2025 Splunk Inc.
+# Copyright (c) 2017-2026 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,6 +13,9 @@
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
 
+
+import re
+from urllib.parse import urlsplit
 
 import phantom.app as phantom
 import requests
@@ -117,8 +120,28 @@ class PhishingInitiativeConnector(BaseConnector):
         # start progress
         self.save_progress(PHISINIT_USING_BASE_URL.format(PHISINIT_LOOKUP_URL))
 
+        url = param[PHISINIT_JSON_URL].strip()
+        url = re.sub(
+            r"^(hxxps?|https?)(?::|\[:\])//",
+            lambda match: "{}://".format(match.group(1).lower().replace("xx", "tt")),
+            url,
+            flags=re.IGNORECASE,
+        )
+        url = re.sub(r"(?:\[(?:\.|dot)\]|\((?:\.|dot)\))", ".", url, flags=re.IGNORECASE)
+
+        try:
+            parsed_url = urlsplit(url)
+            valid_url = parsed_url.scheme in ("http", "https") and bool(parsed_url.hostname)
+        except ValueError:
+            valid_url = False
+        if not valid_url:
+            return action_result.set_status(phantom.APP_ERROR, "Parameter 'url' must be a valid HTTP(S) URL")
+
+        if url != param[PHISINIT_JSON_URL]:
+            self.save_progress("Input URL was normalized before the reputation lookup")
+
         # Make the rest call
-        ret_val, response = self._make_rest_call(param[PHISINIT_JSON_URL], action_result)
+        ret_val, response = self._make_rest_call(url, action_result)
 
         # Process/parse the errors encountered while making the REST call.
         if phantom.is_fail(ret_val):
@@ -128,6 +151,9 @@ class PhishingInitiativeConnector(BaseConnector):
             data = response[0]
         except Exception as e:
             self.error_print("Response not in the expected format", e)
+            return action_result.set_status(phantom.APP_ERROR, "Response not in the expected format")
+
+        if not isinstance(data, dict):
             return action_result.set_status(phantom.APP_ERROR, "Response not in the expected format")
 
         # set the data
